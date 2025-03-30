@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nhập mật khẩu để tiếp tục</title>
+  <title>Nhập thông tin để tiếp tục</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,6 +13,7 @@
       justify-content: center;
       height: 100vh;
       background-color: #f5f5f5;
+      margin: 0;
     }
     .container {
       background: white;
@@ -21,8 +21,14 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       text-align: center;
+      width: 300px;
     }
-    input[type="password"] {
+    .logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    input[type="password"],
+    input[type="email"] {
       padding: 10px;
       margin: 10px 0;
       width: 100%;
@@ -41,25 +47,48 @@
       color: red;
       margin-top: 10px;
     }
+    .footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #555;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🔒 Nhập mật khẩu để tiếp tục</h2>
+    <!-- Logo -->
+    <img src="https://via.placeholder.com/100x100.png?text=Logo" alt="Logo" class="logo">
+
+    <h2>🔒 Nhập thông tin để tiếp tục</h2>
+    <input type="email" id="email" placeholder="Nhập email của bạn">
     <input type="password" id="password" placeholder="Nhập mật khẩu">
-    <button onclick="checkPassword()">Xác nhận</button>
+    <button onclick="checkCredentials()">Xác nhận</button>
     <div class="error" id="error"></div>
+
+    <!-- Footer với email hỗ trợ -->
+    <div class="footer">
+      Cần hỗ trợ? Liên hệ: <a href="mailto:domanhhungit1@gmail.com">domanhhungit1@gmail.com</a>
+    </div>
   </div>
 
   <script>
-    function checkPassword() {
+    function checkCredentials() {
+      const email = document.getElementById('email').value.trim();
       const pass = document.getElementById('password').value;
       const correctPass = "31072013";
-      if (pass === correctPass) {
-        window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
-      } else {
-        document.getElementById('error').textContent = "Sai mật khẩu. Vui lòng thử lại.";
+
+      if (!email) {
+        document.getElementById('error').textContent = "Vui lòng nhập email.";
+        return;
       }
+
+      if (pass !== correctPass) {
+        document.getElementById('error').textContent = "Sai mật khẩu. Vui lòng thử lại.";
+        return;
+      }
+
+      // Nếu đúng hết thì chuyển trang
+      window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
     }
   </script>
 </body>
