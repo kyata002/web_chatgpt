@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nhập thông tin để tiếp tục</title>
   <style>
     body {
@@ -56,39 +56,58 @@
 </head>
 <body>
   <div class="container">
-    <!-- Logo -->
     <img src="https://via.placeholder.com/100x100.png?text=Logo" alt="Logo" class="logo">
-
     <h2>🔒 Nhập thông tin để tiếp tục</h2>
     <input type="email" id="email" placeholder="Nhập email của bạn">
     <input type="password" id="password" placeholder="Nhập mật khẩu">
     <button onclick="checkCredentials()">Xác nhận</button>
     <div class="error" id="error"></div>
-
-    <!-- Footer với email hỗ trợ -->
     <div class="footer">
       Cần hỗ trợ? Liên hệ: <a href="mailto:domanhhungit1@gmail.com">domanhhungit1@gmail.com</a>
     </div>
   </div>
 
   <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxxI-414v7pYynhwLf0eQkfGEO_m2o0frAga2XNxKGD5ufBxg_XrFhsTt3IIbjI5RgM/exec'; // <- thay bằng URL Web App thật
+
     function checkCredentials() {
       const email = document.getElementById('email').value.trim();
       const pass = document.getElementById('password').value;
       const correctPass = "31072013";
+      const errorBox = document.getElementById('error');
+
+      errorBox.textContent = ""; // clear lỗi cũ
 
       if (!email) {
-        document.getElementById('error').textContent = "Vui lòng nhập email.";
+        errorBox.textContent = "Vui lòng nhập email.";
         return;
       }
 
       if (pass !== correctPass) {
-        document.getElementById('error').textContent = "Sai mật khẩu. Vui lòng thử lại.";
+        errorBox.textContent = "Sai mật khẩu. Vui lòng thử lại.";
         return;
       }
 
-      // Nếu đúng hết thì chuyển trang
-      window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
+      // Gửi dữ liệu email về Google Sheet
+      const data = {
+        email: email,
+        userAgent: navigator.userAgent
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        // Sau khi gửi xong thì redirect
+        window.location.href = "https://chatgpt.com/g/g-67e69d0bd2008191873e8b9f07889a5c-tro-ly-ban-hang-medipharm";
+      })
+      .catch(err => {
+        console.error('Lỗi gửi dữ liệu:', err);
+        errorBox.textContent = "Đã xảy ra lỗi, vui lòng thử lại.";
+      });
     }
   </script>
 </body>
